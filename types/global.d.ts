@@ -30,7 +30,9 @@ export interface Match {
   id: string;
   flags: any[];
   teams: Team[];
+  state: string;
   strategy: Strategy;
+  games: Match[];
 }
 
 export interface Event {

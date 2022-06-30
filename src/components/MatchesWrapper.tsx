@@ -13,7 +13,8 @@ import { GameCard } from "./GameCard";
 import type { EventList, Event } from "../../types/global";
 
 type Props = {
-  filteredMatches: EventList;
+  // filteredMatches: EventList;
+  filteredMatches: any;
 };
 
 export const MatchesWrapper = ({ filteredMatches }: Props) => {
@@ -26,12 +27,19 @@ export const MatchesWrapper = ({ filteredMatches }: Props) => {
       <Tabs>
         <TabList>
           <Tab>Live</Tab>
-          <Tab>Completed</Tab>
-          <Tab>Next games</Tab>
+          {/* <Tab>Completed</Tab>
+          <Tab>Next games</Tab> */}
         </TabList>
 
         <TabPanels>
-          {Object.entries(filteredMatches)?.map((value) => (
+          <TabPanel>
+            {filteredMatches.live
+              ?.filter((event: Event) => event.match)
+              .map((event: Event) => {
+                return <GameCard key={event.match.id} event={event} />;
+              })}
+          </TabPanel>
+          {/* {Object.entries(filteredMatches)?.map((value) => (
             <TabPanel key={value[0]}>
               {value[1]
                 .filter((event: Event) => event.match)
@@ -39,22 +47,9 @@ export const MatchesWrapper = ({ filteredMatches }: Props) => {
                   <GameCard key={event.match.id} event={event} />
                 ))}
             </TabPanel>
-          ))}
+          ))} */}
         </TabPanels>
       </Tabs>
-
-      <Wrap>
-        <WrapItem>a</WrapItem>
-      </Wrap>
-      {/* {allMatches
-        // .filter((event: Event) => event.match)
-        .map((event: Event) => (
-          <main key={event.id}>
-            <Link href={`/live/${encodeURIComponent(event.id)}`}>
-              <GameCard event={event} />
-            </Link>
-          </main>
-        ))} */}
     </>
   );
 };

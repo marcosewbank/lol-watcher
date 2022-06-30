@@ -9,11 +9,17 @@ type Props = {
 };
 
 export const GameCard = ({ event }: Props) => {
+  const currentMatchId = event.match.games?.find((game) => {
+    return game.state == "inProgress";
+  });
+
+  if (!currentMatchId) return <></>;
+
   return (
     <HStack spacing="24px" padding="1rem" borderWidth="1px" p="2rem">
       <span>{event.league.name}</span>
 
-      <Link href={`/live/${event.match.id}`}>
+      <Link href={`/live/${currentMatchId?.id}`}>
         {event.match.teams.map((team: Team) => (
           <Box
             key={team.code}
